@@ -8,26 +8,28 @@ public class BoardController : MonoBehaviour
     public const int BOARD_HEIGHT = 14;
 
     [SerializeField] GameObject prefabPuyo = default!;
-    int[,] _board=new int[BOARD_WIDTH, BOARD_HEIGHT];
+    int[,] _board = new int[BOARD_WIDTH, BOARD_HEIGHT];
     GameObject[,] _Puyos = new GameObject[BOARD_HEIGHT, BOARD_WIDTH];
     // Start is called before the first frame update
 
-    private void ClearAll(){
-        for (int y = 0; y < BOARD_HEIGHT; y++) 
+    private void ClearAll()
+    {
+        for (int y = 0; y < BOARD_HEIGHT; y++)
         {
             for (int x = 0; x < BOARD_WIDTH; x++)
             {
                 _board[y, x] = 0;
             }
         }
-}
+    }
 
     void Start()
     {
-       ClearAll();
-        for(int y=0; y < BOARD_HEIGHT; y++)
+        ClearAll();
+
+        for (int y = 0; y < BOARD_HEIGHT; y++)
         {
-            for(int x = 0; x < BOARD_WIDTH; x++)
+            for (int x = 0; x < BOARD_WIDTH; x++)
             {
                 Settle(new Vector2Int(x, y), Random.Range(1, 7));
             }
@@ -36,19 +38,19 @@ public class BoardController : MonoBehaviour
 
     public static bool IsValidated(Vector2Int pos)
     {
-        return 0<=pos.x && pos.x < BOARD_WIDTH
-            && 0<=pos.y && pos.y < BOARD_HEIGHT;
+        return 0 <= pos.x && pos.x < BOARD_WIDTH
+            && 0 <= pos.y && pos.y < BOARD_HEIGHT;
     }
 
     public bool CanSettle(Vector2Int pos)
     {
         if (!IsValidated(pos)) return false;
-        return 0==_board[pos.y, pos.x];
+        return 0 == _board[pos.y, pos.x];
     }
 
     public bool Settle(Vector2Int pos, int val)
     {
-        if(!CanSettle(pos)) return false;
+        if (!CanSettle(pos)) return false;
 
         _board[pos.y, pos.x] = val;
 
@@ -62,6 +64,6 @@ public class BoardController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
